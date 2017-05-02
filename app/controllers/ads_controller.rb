@@ -3,6 +3,7 @@ class AdsController < ApplicationController
   before_action :find_ad, only: %i[show edit destroy update delete_ad_file]
   before_action :find_event, only: %i[show new create destroy edit update delete_ad_file]
   before_action :find_user, only: %i[new create edit update destroy]
+  before_action :all_comments, only: [:show]
 
   def new
     @ad = @event.ads.new
@@ -56,5 +57,9 @@ class AdsController < ApplicationController
 
   def find_ad
     @ad = Ad.find(params[:id])
+  end
+
+  def all_comments
+    @comments = Comment.where(event: params[:event_id], ad: params[:id])
   end
 end

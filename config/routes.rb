@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   put 'users/:id/delete_user_photo', to: 'application#delete_user_photo', as: 'delete_user_photo'
   root 'home#index'
   resources :events do
-    resources :ads
+    resources :ads do
+      resources :comments
+    end
   end
   scope :auth do
     get 'is_signed_in', to: 'auth#is_signed_in?'

@@ -2,6 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook]
+  has_many :comments
   has_many :events
   has_many :ads
   validates :name, :email, presence: true
@@ -29,12 +30,11 @@ class User < ApplicationRecord
   end
 
   private
-
-    def self.process_uri(uri)
-      require 'open-uri'
-      require 'open_uri_redirections'
-      open(uri, :allow_redirections => :safe) do |r|
-        r.base_uri.to_s
-      end
+  def self.process_uri(uri)
+    require 'open-uri'
+    require 'open_uri_redirections'
+    open(uri, :allow_redirections => :safe) do |r|
+      r.base_uri.to_s
     end
+  end
 end

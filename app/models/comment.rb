@@ -1,0 +1,5 @@
+class Comment < ApplicationRecord
+  belongs_to :user
+  belongs_to :ad
+  belongs_to :event
+end
